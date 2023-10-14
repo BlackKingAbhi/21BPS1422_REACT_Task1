@@ -1,25 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  // State to store the user input and word count
+  const [inputText, setInputText] = useState('');
+  const [wordCount, setWordCount] = useState(0);
+
+  // Function to handle user input change
+  const handleInputChange = (event) => {
+    const text = event.target.value;
+    setInputText(text);
+
+    // Calculate the word count (count only words with letters)
+    const words = text.trim().split(/\s+/);
+    const filteredWords = words.filter(word => /[a-zA-Z]/.test(word)); // Filter out words without letters
+    setWordCount(filteredWords.length);
+  };
+
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: 'red !important' }}>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="box">
+          <div>
+            <label>
+              Responsive Paragraph Word Counter
+              <div><br /></div>
+              <div>
+                <textarea
+                  value={inputText}
+                  onChange={handleInputChange}
+                  rows="4"
+                  cols="50"
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className="WordCountBox">
+            Word Count: {wordCount}
+          </div>
+        </div>
       </header>
     </div>
   );
 }
+
 
 export default App;
